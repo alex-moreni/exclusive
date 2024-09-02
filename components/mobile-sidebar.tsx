@@ -4,6 +4,7 @@ import {
   HomeIcon,
   InfoIcon,
   LaptopMinimal,
+  Smartphone,
   Phone,
   Watch,
   Heart,
@@ -58,7 +59,7 @@ const MobileSidebar = () => {
         <ItemSidebar
           title="celulares"
           link="/products/smartphones"
-          Icon={Phone}
+          Icon={Smartphone}
         />
         <ItemSidebar
           title="computadores"
