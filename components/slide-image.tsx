@@ -33,7 +33,11 @@ const SlideImage = () => {
 
   return (
     <div className="relative flex items-center justify-center">
-      <img src={images[index]} alt="" className="h-[200px] object-contain" />
+      <img
+        src={images[index]}
+        alt=""
+        className="h-[200px] object-contain sm:h-[300px] md:h-[350px] lg:h-[400px]"
+      />
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex items-center gap-2">
           <button className="btn-image rounded-full bg-red-500 p-2"></button>

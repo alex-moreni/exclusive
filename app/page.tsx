@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <main className="p-10">
       <section className="flex items-start justify-between">
-        <div className="hidden flex-col gap-2 border-r border-solid pr-4 lg:flex">
+        <div className="hidden flex-col gap-2 lg:flex">
           <h1 className="text-2xl">Categorias</h1>
           <Link href="/products/smartphones">Celulares</Link>
           <Link href="/products/computers">Computadores</Link>
