@@ -12,24 +12,16 @@ const SlideImage = () => {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
-    const btns = document.querySelectorAll(".btn-image")
-    btns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        btns.forEach((btn) => {
-          btn.classList.remove("bg-red-500")
-          btn.classList.add("bg-gray-500")
-        })
-        btn.classList.remove("bg-gray-500")
-        btn.classList.add("bg-red-500")
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % images.length)
+    }, 3000)
 
-        btns.forEach((btn, index) => {
-          if (btn.classList.contains("bg-red-500")) {
-            setIndex(index)
-          }
-        })
-      })
-    })
+    return () => clearInterval(interval)
   }, [])
+
+  const handleButtonClick = (btnIndex: any) => {
+    setIndex(btnIndex)
+  }
 
   return (
     <div className="relative flex items-center justify-center">
@@ -40,9 +32,13 @@ const SlideImage = () => {
       />
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex items-center gap-2">
-          <button className="btn-image rounded-full bg-red-500 p-2"></button>
-          <button className="btn-image rounded-full bg-gray-500 p-2"></button>
-          <button className="btn-image rounded-full bg-gray-500 p-2"></button>
+          {images.map((_, btnIndex) => (
+            <button
+              key={btnIndex}
+              className={`btn-image rounded-full p-2 ${index === btnIndex ? "bg-red-500" : "bg-gray-500"}`}
+              onClick={() => handleButtonClick(btnIndex)}
+            ></button>
+          ))}
         </div>
       </div>
     </div>

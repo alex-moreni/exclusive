@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
         <div className="hidden flex-col md:flex">
           <h1 className="text-2xl">Exclusive</h1>
-          <Link href="/sign-in">Sobre nós</Link>
+          <Link href="/about">Sobre nós</Link>
           <Link href="/contact">Contato</Link>
         </div>
       </div>
