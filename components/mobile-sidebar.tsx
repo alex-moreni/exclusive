@@ -20,11 +20,13 @@ import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
 import { SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
 import SignInDialog from "./sign-in-dialog"
 import ItemSidebar from "./item-sidebar"
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import { Button } from "./ui/button"
 
 const MobileSidebar = () => {
   const { data } = useSession()
+
+  const handleLogoutClik = () => signOut()
 
   return (
     <SheetContent className="overflow-y-auto bg-gray-900 text-white">
@@ -101,6 +103,12 @@ const MobileSidebar = () => {
         <ItemSidebar title="sobre nós" link="/about" Icon={InfoIcon} />
         <ItemSidebar title="Contato" link="/contact" Icon={Phone} />
       </div>
+
+      {data?.user && (
+        <div className="flex flex-col gap-2 border-b border-solid py-5">
+          <Button onClick={handleLogoutClik}>Sair</Button>
+        </div>
+      )}
     </SheetContent>
   )
 }

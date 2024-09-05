@@ -1,10 +1,26 @@
+"use client"
+
 import Link from "next/link"
 import { Input } from "./ui/input"
-import { Heart, MenuIcon, ShoppingCart, UserRound } from "lucide-react"
+import {
+  Heart,
+  LogInIcon,
+  MenuIcon,
+  ShoppingCart,
+  UserRound,
+} from "lucide-react"
 import { Sheet, SheetTrigger } from "./ui/sheet"
 import MobileSidebar from "./mobile-sidebar"
+import { signOut, useSession } from "next-auth/react"
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
+import SignInDialog from "./sign-in-dialog"
+import { Avatar, AvatarImage } from "./ui/avatar"
 
 const Header = () => {
+  const { data } = useSession()
+
+  const handleLogoutClik = () => signOut()
+
   return (
     <div>
       <div>
@@ -29,9 +45,6 @@ const Header = () => {
           <Link href="/about" className="hover:font-semibold">
             Sobre nós
           </Link>
-          <Link href="/sign-in" className="hover:font-semibold">
-            Entrar
-          </Link>
         </nav>
 
         <Input
@@ -39,7 +52,7 @@ const Header = () => {
           className="hidden w-[30%] lg:block"
         />
 
-        <div className="hidden lg:flex lg:gap-3">
+        <div className="hidden items-center lg:flex lg:gap-3">
           <Link href="/favorites">
             {" "}
             <Heart />
@@ -47,9 +60,30 @@ const Header = () => {
           <Link href="/cart">
             <ShoppingCart />
           </Link>
-          <Link href="/account">
-            <UserRound />
-          </Link>
+          {data?.user ? (
+            <Link href="/account">
+              <Avatar>
+                <AvatarImage
+                  className="object-cover"
+                  src={data.user?.image ?? ""}
+                />
+              </Avatar>
+            </Link>
+          ) : (
+            <Dialog>
+              <DialogTrigger asChild>
+                <span className="cursor-pointer">Entrar</span>
+              </DialogTrigger>
+              <DialogContent className="w-[90%] bg-black">
+                <SignInDialog />
+              </DialogContent>
+            </Dialog>
+          )}
+          {data?.user && (
+            <span className="cursor-pointer" onClick={handleLogoutClik}>
+              Sair
+            </span>
+          )}
         </div>
 
         <Sheet>
