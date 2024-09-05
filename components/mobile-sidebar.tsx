@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Camera,
   Headset,
@@ -10,14 +12,20 @@ import {
   Heart,
   ShoppingCart,
   UserRound,
+  LogInIcon,
 } from "lucide-react"
 
 import { Avatar, AvatarImage } from "./ui/avatar"
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
 import { SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
-import Link from "next/link"
+import SignInDialog from "./sign-in-dialog"
 import ItemSidebar from "./item-sidebar"
+import { useSession } from "next-auth/react"
+import { Button } from "./ui/button"
 
 const MobileSidebar = () => {
+  const { data } = useSession()
+
   return (
     <SheetContent className="overflow-y-auto bg-gray-900 text-white">
       <SheetHeader>
@@ -27,19 +35,37 @@ const MobileSidebar = () => {
       </SheetHeader>
 
       <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
-        <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage
-              className="object-cover"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAFz5NfjSNl93oKMOPk-x28GZuyva2UF-ZFQ&s"
-            />
-          </Avatar>
-
-          <div>
-            <p className="font-bold">Fulano</p>
-            <p className="text-xs">Silva</p>
+        {data?.user ? (
+          <div className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage
+                className="object-cover"
+                src={data.user?.image ?? ""}
+              />
+            </Avatar>
+            <div>
+              <p className="font-bold">{data.user.name}</p>
+              <p className="text-xs">{data.user.email}</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <>
+            <div>
+              <h2 className="text-lg font-bold">Olá, faça seu login!</h2>
+              <p className="text-sm">Para finalizar suas compras!</p>
+            </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="icon">
+                  <LogInIcon />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-[90%] bg-black">
+                <SignInDialog />
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
