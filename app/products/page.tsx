@@ -20,7 +20,7 @@ const Products = async () => {
             </span>
           </header>
           <div className="lg:grid-ro mt-4 flex items-center gap-6 overflow-x-auto lg:grid-cols-2 lg:flex-wrap lg:justify-center [&::-webkit-scrollbar]:hidden">
-            {filteredProducts("celulares")
+            {filteredProducts("smartphones")
               .slice(0, 8)
               .map((product) => (
                 <Card key={product.id} product={product} isDiscount={false} />
@@ -37,7 +37,7 @@ const Products = async () => {
             </span>
           </header>
           <div className="lg:grid-ro mt-4 flex items-center gap-6 overflow-x-auto lg:grid-cols-2 lg:flex-wrap lg:justify-center [&::-webkit-scrollbar]:hidden">
-            {filteredProducts("computadores")
+            {filteredProducts("computers")
               .slice(0, 8)
               .map((product) => (
                 <Card key={product.id} product={product} isDiscount={false} />
@@ -54,7 +54,7 @@ const Products = async () => {
             </span>
           </header>
           <div className="lg:grid-ro mt-4 flex items-center gap-6 overflow-x-auto lg:grid-cols-2 lg:flex-wrap lg:justify-center [&::-webkit-scrollbar]:hidden">
-            {filteredProducts("smartwatch")
+            {filteredProducts("watches")
               .slice(0, 8)
               .map((product) => (
                 <Card key={product.id} product={product} isDiscount={false} />
@@ -88,7 +88,7 @@ const Products = async () => {
             </span>
           </header>
           <div className="lg:grid-ro mt-4 flex items-center gap-6 overflow-x-auto lg:grid-cols-2 lg:flex-wrap lg:justify-center [&::-webkit-scrollbar]:hidden">
-            {filteredProducts("fones")
+            {filteredProducts("headphones")
               .slice(0, 8)
               .map((product) => (
                 <Card key={product.id} product={product} isDiscount={false} />

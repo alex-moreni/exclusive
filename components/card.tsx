@@ -43,7 +43,11 @@ const Card = ({ product, isDiscount }: CardProps) => {
         </h2>
       )}
 
-      <img src={product.image} alt="" className="h-[230px] w-full" />
+      <img
+        src={product.image}
+        alt=""
+        className="h-[230px] w-full object-contain"
+      />
 
       <div className="space-y-1 p-4">
         <h5 className="font-semi-bold truncate text-lg">{product.name}</h5>
