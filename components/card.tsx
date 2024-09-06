@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { addProductCart } from "@/actions/add-product-cart"
+import { toast } from "sonner"
 
 interface CardProps {
   product: {
@@ -26,8 +27,10 @@ const Card = ({ product, isDiscount }: CardProps) => {
   const addCart = async () => {
     try {
       await addProductCart({ productId: product.id })
+      toast.success("Produto adicionado ao carrinho")
     } catch (error) {
       console.log(error)
+      toast.error("Faça login para adicionar items no carrinho.")
     }
   }
 
