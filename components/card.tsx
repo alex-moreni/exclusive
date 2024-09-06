@@ -1,6 +1,10 @@
+"use client"
+
 import { EyeIcon, Heart, Star } from "lucide-react"
 import { Button } from "./ui/button"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+import { addProductCart } from "@/actions/add-product-cart"
 
 interface CardProps {
   product: {
@@ -17,6 +21,20 @@ interface CardProps {
 }
 
 const Card = ({ product, isDiscount }: CardProps) => {
+  const [ratings, setRatings] = useState<number>(0)
+
+  const addCart = async () => {
+    try {
+      await addProductCart({ productId: product.id })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    setRatings(Math.floor(Math.random() * 1000))
+  }, [])
+
   return (
     <div className="group relative h-[350px] w-[270px] cursor-pointer rounded-lg shadow-xl">
       <div className="absolute right-4 top-4 flex-col space-y-1">
@@ -87,14 +105,16 @@ const Card = ({ product, isDiscount }: CardProps) => {
           <Star size={17} color="yellow" />
           <Star size={17} color="yellow" />
           <span className="truncate text-xs text-gray-600">
-            {" "}
-            ({Math.floor(Math.random() * 1000)}) avaliações
+            {ratings} avaliações
           </span>
         </div>
       </div>
 
       <div className="pointer-events-none absolute inset-0 mt-20 flex items-center justify-center group-hover:pointer-events-auto">
-        <Button className="w-full bg-black px-4 py-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <Button
+          onClick={addCart}
+          className="w-full bg-black px-4 py-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        >
           Adicionar ao Carrinho
         </Button>
       </div>
