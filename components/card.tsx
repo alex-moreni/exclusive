@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { addProductCart } from "@/actions/add-product-cart"
 import { toast } from "sonner"
 import { addProductFavorite } from "@/actions/add-product-favorite"
+import { deleteFavorites } from "@/actions/delete-product-favorite"
 
 interface CardProps {
   product: {
@@ -19,10 +20,11 @@ interface CardProps {
     size?: string[]
     color?: string | null
   }
-  isDiscount: boolean
+  isDiscount?: boolean
+  isFavorite?: boolean
 }
 
-const Card = ({ product, isDiscount }: CardProps) => {
+const Card = ({ product, isDiscount, isFavorite }: CardProps) => {
   const [ratings, setRatings] = useState<number>(0)
 
   const addCart = async () => {
@@ -45,6 +47,16 @@ const Card = ({ product, isDiscount }: CardProps) => {
     }
   }
 
+  const deleteProductFavorites = async () => {
+    try {
+      await deleteFavorites({ productId: product.id })
+      toast.success("Produto removido dos favoritos")
+    } catch (error) {
+      console.log(error)
+      toast.error("Erro ao remover o item dos favoritos.")
+    }
+  }
+
   useEffect(() => {
     setRatings(Math.floor(Math.random() * 1000))
   }, [])
@@ -59,15 +71,30 @@ const Card = ({ product, isDiscount }: CardProps) => {
           </Link>
         </Button>
         <br />
-        <Button
-          variant="outline"
-          className="z-10 h-[40px] w-[40px] rounded-full"
-          onClick={addFavorite}
-        >
-          <div>
-            <Heart size={20} />
-          </div>
-        </Button>
+        {!isFavorite ? (
+          <Button
+            variant="outline"
+            className="z-10 h-[40px] w-[40px] rounded-full"
+            onClick={addFavorite}
+          >
+            <div>
+              <Heart size={20} />
+            </div>
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            className="z-10 h-[40px] w-[40px] rounded-full"
+            onClick={() => {
+              deleteProductFavorites()
+              window.location.reload()
+            }}
+          >
+            <div>
+              <Heart size={20} color="red" />
+            </div>
+          </Button>
+        )}
       </div>
       {isDiscount && (
         <h2 className="absolute left-4 top-4 rounded-lg bg-red-500 p-1 font-bold text-white">
