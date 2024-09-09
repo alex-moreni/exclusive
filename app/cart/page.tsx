@@ -59,11 +59,35 @@ const Cart = () => {
           </Button>
         </div>
       ) : (
-        <div className="space-y-10 rounded-lg bg-white p-6 shadow-md">
-          {items.map((product) => (
-            <CardCart item={product} key={product.id} />
-          ))}
-        </div>
+        <>
+          <div className="space-y-10 rounded-lg bg-white p-6 shadow-md">
+            {items.map((product) => (
+              <CardCart item={product} key={product.id} />
+            ))}
+          </div>
+          <div className="mt-10">
+            <div className="flex items-center justify-between gap-3">
+              <h1>
+                Preço Total:{" "}
+                <span className="font-bold">
+                  {Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(
+                    items.reduce((sum, item) => {
+                      return item.quantity > 0
+                        ? sum + item.product.price * item.quantity
+                        : sum
+                    }, 0),
+                  )}
+                </span>
+              </h1>
+              <Button asChild className="bg-blue-500">
+                <Link href="/checkout">Finalizar Compra</Link>
+              </Button>
+            </div>
+          </div>
+        </>
       )}
     </main>
   )
