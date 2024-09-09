@@ -78,7 +78,6 @@ const MobileSidebar = () => {
           link="/cart"
           Icon={ShoppingCart}
         />
-        <ItemSidebar title="minha conta" link="/account" Icon={UserRound} />
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">

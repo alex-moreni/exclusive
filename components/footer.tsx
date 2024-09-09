@@ -18,8 +18,8 @@ const Footer = () => {
         </div>
         <div className="flex flex-col">
           <h1 className="text-2xl">Conta</h1>
-          <Link href="/account">Minha conta</Link>
-          <Link href="/sign-in">Entrar / Registrar</Link>
+          <Link href="/">Minha conta</Link>
+          <Link href="/">Entrar / Registrar</Link>
           <Link href="/cart">Carrinho de compras</Link>
         </div>
         <div className="hidden flex-col md:flex">
