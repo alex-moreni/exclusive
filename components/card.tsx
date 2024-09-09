@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { addProductCart } from "@/actions/add-product-cart"
 import { toast } from "sonner"
+import { addProductFavorite } from "@/actions/add-product-favorite"
 
 interface CardProps {
   product: {
@@ -34,6 +35,16 @@ const Card = ({ product, isDiscount }: CardProps) => {
     }
   }
 
+  const addFavorite = async () => {
+    try {
+      await addProductFavorite({ productId: product.id })
+      toast.success("Produto adicionado aos favoritos")
+    } catch (error) {
+      console.log(error)
+      toast.error("Faça login para adicionar items aos favoritos.")
+    }
+  }
+
   useEffect(() => {
     setRatings(Math.floor(Math.random() * 1000))
   }, [])
@@ -51,11 +62,11 @@ const Card = ({ product, isDiscount }: CardProps) => {
         <Button
           variant="outline"
           className="z-10 h-[40px] w-[40px] rounded-full"
+          onClick={addFavorite}
         >
-          <Link href={`/product/${1}`}>
-            {" "}
+          <div>
             <Heart size={20} />
-          </Link>
+          </div>
         </Button>
       </div>
       {isDiscount && (

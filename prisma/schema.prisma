@@ -95,28 +95,31 @@ model Address {
 }
 
 model Favorites {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String  @db.ObjectId
+  productId String  @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model ShoppingCart {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  productId  String @db.ObjectId
-  quantity Int
-  product Product @relation(fields: [productId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String  @db.ObjectId
+  productId String  @db.ObjectId
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Float
-  description String
-  image       String
-  category    String
-  size        String[]
-  color       String?
-  shoppingCart  ShoppingCart[]
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  price        Float
+  description  String
+  image        String
+  category     String
+  size         String[]
+  color        String?
+  shoppingCart ShoppingCart[]
+  favorites    Favorites[]
 }

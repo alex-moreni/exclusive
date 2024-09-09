@@ -80,6 +80,7 @@ const CardCart = ({ item }: any) => {
               <button
                 onClick={() => {
                   addCart()
+                  window.location.reload()
                 }}
                 className="border border-gray-300 px-2"
               >
