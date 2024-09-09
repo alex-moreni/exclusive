@@ -6,6 +6,7 @@ import {
   Heart,
   LogInIcon,
   MenuIcon,
+  Search,
   ShoppingCart,
   UserRound,
 } from "lucide-react"
@@ -15,11 +16,24 @@ import { signOut, useSession } from "next-auth/react"
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import { Avatar, AvatarImage } from "./ui/avatar"
+import { useState } from "react"
+import { Button } from "./ui/button"
 
 const Header = () => {
+  const [title, setTitle] = useState("")
   const { data } = useSession()
 
   const handleLogoutClik = () => signOut()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!title) {
+      return
+    }
+
+    window.location.href = `/products?title=${title}`
+  }
 
   return (
     <div>
@@ -47,10 +61,21 @@ const Header = () => {
           </Link>
         </nav>
 
-        <Input
-          placeholder="O que você está procurando?"
-          className="hidden w-[30%] lg:block"
-        />
+        <form onSubmit={handleSubmit} className="hidden w-[30%] lg:flex">
+          <Input
+            placeholder="O que você está procurando?"
+            className="rounded-bl-sm rounded-br-[0] rounded-tl-sm rounded-tr-[0]"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <Button
+            className="rounded-bl-[0] rounded-br-sm rounded-tl-[0] rounded-tr-sm bg-black"
+            size="icon"
+            type="submit"
+          >
+            <Search />
+          </Button>
+        </form>
 
         <div className="hidden items-center lg:flex lg:gap-3">
           <Link href="/favorites">
