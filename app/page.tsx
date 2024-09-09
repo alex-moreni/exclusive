@@ -22,14 +22,6 @@ export default async function Home() {
   return (
     <main className="p-10">
       <section className="flex items-start justify-between">
-        <div className="hidden flex-col gap-2 lg:flex">
-          <h1 className="text-2xl">Categorias</h1>
-          <Link href="/products/smartphones">Celulares</Link>
-          <Link href="/products/computers">Computadores</Link>
-          <Link href="/products/watches">Relógios</Link>
-          <Link href="/products/cameras">Cameras</Link>
-          <Link href="/products/headphones">Fones</Link>
-        </div>
         <div className="w-full">
           <SlideImage />
         </div>

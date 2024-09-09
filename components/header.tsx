@@ -119,6 +119,13 @@ const Header = () => {
           <MobileSidebar />
         </Sheet>
       </header>
+      <div className="hidden justify-center gap-6 font-semibold lg:flex">
+        <Link href="/products/smartphones">Celulares</Link>
+        <Link href="/products/computers">Computadores</Link>
+        <Link href="/products/watches">Relógios</Link>
+        <Link href="/products/cameras">Cameras</Link>
+        <Link href="/products/headphones">Fones</Link>
+      </div>
     </div>
   )
 }
